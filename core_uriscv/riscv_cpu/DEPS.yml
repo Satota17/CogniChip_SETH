@@ -1,0 +1,51 @@
+# =============================================================================
+# RISC-V CPU Dependencies Configuration
+# =============================================================================
+
+# Individual RTL modules
+riscv_alu:
+  deps:
+    - rtl/riscv_alu.sv
+
+riscv_regfile:
+  deps:
+    - rtl/riscv_regfile.sv
+
+riscv_decoder:
+  deps:
+    - rtl/riscv_decoder.sv
+
+riscv_control:
+  deps:
+    - rtl/riscv_control.sv
+
+riscv_cpu_core:
+  deps:
+    - rtl/riscv_alu.sv
+    - rtl/riscv_regfile.sv
+    - rtl/riscv_decoder.sv
+    - rtl/riscv_control.sv
+    - rtl/riscv_cpu_core.sv
+  top: riscv_cpu_core
+
+riscv_soc:
+  deps:
+    - rtl/riscv_alu.sv
+    - rtl/riscv_regfile.sv
+    - rtl/riscv_decoder.sv
+    - rtl/riscv_control.sv
+    - rtl/riscv_cpu_core.sv
+    - rtl/riscv_soc.sv
+  top: riscv_soc
+
+# Testbench target for simulation
+tb_riscv_soc:
+  deps:
+    - rtl/riscv_alu.sv
+    - rtl/riscv_regfile.sv
+    - rtl/riscv_decoder.sv
+    - rtl/riscv_control.sv
+    - rtl/riscv_cpu_core.sv
+    - rtl/riscv_soc.sv
+    - tb_riscv_soc.sv
+  top: tb_riscv_soc

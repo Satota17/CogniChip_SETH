@@ -1,0 +1,39 @@
+# =============================================================================
+# RISC-V CPU Dependencies Configuration (Root Level)
+# =============================================================================
+
+# Basic testbench target
+tb_riscv_soc:
+  deps:
+    - riscv_cpu/rtl/riscv_alu.sv
+    - riscv_cpu/rtl/riscv_regfile.sv
+    - riscv_cpu/rtl/riscv_decoder.sv
+    - riscv_cpu/rtl/riscv_control.sv
+    - riscv_cpu/rtl/riscv_cpu_core.sv
+    - riscv_cpu/rtl/riscv_soc.sv
+    - riscv_cpu/tb_riscv_soc.sv
+  top: tb_riscv_soc
+
+# Comprehensive testbench target (all 10 test categories)
+tb_riscv_comprehensive:
+  deps:
+    - riscv_cpu/rtl/riscv_alu.sv
+    - riscv_cpu/rtl/riscv_regfile.sv
+    - riscv_cpu/rtl/riscv_decoder.sv
+    - riscv_cpu/rtl/riscv_control.sv
+    - riscv_cpu/rtl/riscv_cpu_core.sv
+    - riscv_cpu/rtl/riscv_soc.sv
+    - riscv_cpu/tb_riscv_comprehensive.sv
+  top: tb_riscv_comprehensive
+
+# Category-by-category testbench (tests each category separately)
+tb_category_tests:
+  deps:
+    - riscv_cpu/rtl/riscv_alu.sv
+    - riscv_cpu/rtl/riscv_regfile.sv
+    - riscv_cpu/rtl/riscv_decoder.sv
+    - riscv_cpu/rtl/riscv_control.sv
+    - riscv_cpu/rtl/riscv_cpu_core.sv
+    - riscv_cpu/rtl/riscv_soc.sv
+    - riscv_cpu/tb_category_tests.sv
+  top: tb_category_tests

@@ -1,2 +1,2 @@
 # CogniChip_SETH
-Cognichip Channel
+Cognichip Challenge

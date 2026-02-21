@@ -1,0 +1,4 @@
+vvp -N testbench.vvp
+TRAP after 8 clock cycles
+ERROR!
+testbench.v:271: $stop called at 1180000 (1ps)

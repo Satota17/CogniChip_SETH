@@ -1,0 +1,29 @@
+# DEPS configuration for 8-bit ALU simulation
+
+# Testbench simulation target with my modified ALU
+sim_alu_mydesign:
+  deps:
+    - alu8bit.v
+    - testbench_alu_custom.v
+  top: testbench_alu
+
+# Testbench simulation target with custom structural ALU
+sim_alu_custom_design:
+  deps:
+    - and_gate4.v
+    - or_gate4.v
+    - exor_gate4.v
+    - not_gate4.v
+    - add_4bit.v
+    - add_8bit.v
+    - add_subtract_8bit.v
+    - and_gate8.v
+    - or_gate8.v
+    - exor_gate8.v
+    - not_gate8.v
+    - inc_8bit.v
+    - dec_8bit.v
+    - sub_8bit.v
+    - alu8bit_custom.v
+    - testbench_alu_custom.v
+  top: testbench_alu

@@ -1,0 +1,56 @@
+=== Command: tail -50 synth_alu8bit_custom.log (2026-02-19T22:28:28.736Z) ===
+Exit Code: 0
+Output:
+Dumping module `\and_gate8'.
+Dumping module `\dec_8bit'.
+Dumping module `\exor_gate4'.
+Dumping module `\exor_gate8'.
+Dumping module `\inc_8bit'.
+Dumping module `\not_gate4'.
+Dumping module `\not_gate8'.
+Dumping module `\or_gate4'.
+Dumping module `\or_gate8'.
+Dumping module `\sub_8bit'.
+
+yosys> write_json synth_alu8bit_custom.json
+
+27. Executing JSON backend.
+
+yosys> show -format dot -prefix synth_alu8bit_custom_diagram -notitle
+
+28. Generating Graphviz representation of design.
+Writing dot description to `synth_alu8bit_custom_diagram.dot'.
+Dumping module add_4bit to page 1.
+Dumping module add_8bit to page 2.
+Dumping module alu8bit to page 3.
+Dumping module and_gate4 to page 4.
+Dumping module and_gate8 to page 5.
+Dumping module dec_8bit to page 6.
+Dumping module exor_gate4 to page 7.
+Dumping module exor_gate8 to page 8.
+Dumping module inc_8bit to page 9.
+Dumping module not_gate4 to page 10.
+Dumping module not_gate8 to page 11.
+Dumping module or_gate4 to page 12.
+Dumping module or_gate8 to page 13.
+Dumping module sub_8bit to page 14.
+
+yosys> echo ""
+
+Syntax error in command `echo ""':
+
+    echo on
+
+Print all commands to log before executing them.
+
+
+    echo off
+
+Do not print all commands to log before executing them. (default)
+
+ERROR: Command syntax error: Unexpected argument.
+> echo ""
+>      ^
+
+=== End Output ===
+

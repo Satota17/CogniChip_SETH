@@ -1,0 +1,19 @@
+=== Command: python3 compare_designs.py (2026-02-19T22:27:13.920Z) ===
+Exit Code: 1
+Output:
+[1m[94mStarting PPA Comparison...[0m
+
+Loading synthesis results...
+Traceback (most recent call last):
+  File [35m"/Users/aliena/Dev/CogniChip/CogniChip_ALU/compare_designs.py"[0m, line [35m228[0m, in [35m<module>[0m
+    [31mmain[0m[1;31m()[0m
+    [31m~~~~[0m[1;31m^^[0m
+  File [35m"/Users/aliena/Dev/CogniChip/CogniChip_ALU/compare_designs.py"[0m, line [35m214[0m, in [35mmain[0m
+    stats_custom = parse_yosys_log('synth_alu8bit_custom.log')
+  File [35m"/Users/aliena/Dev/CogniChip/CogniChip_ALU/compare_designs.py"[0m, line [35m47[0m, in [35mparse_yosys_log[0m
+    stats['and_gates'] = [31mint[0m[1;31m(parts[1])[0m
+                         [31m~~~[0m[1;31m^^^^^^^^^^[0m
+[1;35mValueError[0m: [35minvalid literal for int() with base 10: '$_AND_'[0m
+
+=== End Output ===
+

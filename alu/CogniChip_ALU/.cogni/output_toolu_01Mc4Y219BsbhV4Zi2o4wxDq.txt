@@ -1,0 +1,14 @@
+=== Command: echo "=== ALU_8BIT.V STATISTICS ===" && grep -A 30 "Printing statistics" synth_alu_8bit.log | grep -E "(Number of|Chip area|alu_8bit)" | head -20 (2026-02-19T22:13:05.660Z) ===
+Exit Code: 0
+Output:
+=== ALU_8BIT.V STATISTICS ===
+=== alu_8bit ===
+Attribute `top' found on module `alu_8bit'. Setting top module to alu_8bit.
+Top module:  \alu_8bit
+Top module:  \alu_8bit
+=== alu_8bit ===
+Checking module alu_8bit...
+yosys> write_verilog -noattr synth_alu_8bit_netlist.v
+
+=== End Output ===
+

@@ -1,0 +1,6 @@
+=== Command: yosys synth_alu8bit.ys > synth_alu8bit_mydesign.log 2>&1 (2026-02-19T22:25:06.254Z) ===
+Exit Code: 1
+Output:
+
+=== End Output ===
+

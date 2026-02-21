@@ -1,0 +1,56 @@
+=== Command: python3 compare_ppa.py (2026-02-19T22:14:36.047Z) ===
+Exit Code: 0
+Output:
+[1m[94mStarting PPA Comparison...[0m
+
+Loading synthesis results...
+
+[1m[96m================================================================================[0m
+[1m[96mPPA Comparison Report: ALU Designs[0m
+[1m[96m================================================================================[0m
+
+[1m[95mDesign Overview:[0m
+  Design 1: [92malu_8bit.v (Full-Featured)[0m
+  Design 2: [92malu8bit.v (Modified with Enable)[0m
+
+[1m[95mGate Count Comparison:[0m
+Metric                           Design 1        Design 2      Difference     % Change
+-------------------------------------------------------------------------------------
+Total Cells                           525             325 [92m           -200[0m       -38.1%
+AND Gates                             183             119 [92m            -64[0m       -35.0%
+OR Gates                              241             126 [92m           -115[0m       -47.7%
+NOT Gates                              45              32 [92m            -13[0m       -28.9%
+XOR Gates                              46              30 [92m            -16[0m       -34.8%
+MUX Gates                              10              18 [91m             +8[0m       +80.0%
+Wires                                   8               6 [92m             -2[0m       -25.0%
+Wire Bits                              32              30 [92m             -2[0m        -6.2%
+
+[1m[95mPPA Metrics (Estimated):[0m
+Metric                           Design 1        Design 2      Difference     % Change
+-------------------------------------------------------------------------------------
+Area (Gate Equiv.)                  512.5           327.0 [92m         -185.5[0m       -36.2%
+Power (Rel. Units)                  549.0           351.6 [92m         -197.4[0m       -36.0%
+Performance (MHz)                    39.6            25.5 [91m          -14.1[0m       -35.7%
+Delay (Rel. Units)                  25.25           39.25 [93m         +14.00[0m       +55.4%
+
+[1m[95mSummary:[0m
+-------------------------------------------------------------------------------------
+  [92m✓ Design 2 has 36.2% SMALLER area[0m
+  [92m✓ Design 2 has 36.0% LOWER power[0m
+  [91m✗ Design 2 is 35.7% SLOWER[0m
+
+[1m[95mKey Insights:[0m
+-------------------------------------------------------------------------------------
+  • Design 2 uses 38.1% fewer logic cells
+  • Reduced complexity leads to smaller area and lower power
+  • Design 1: 470 logic gates, 10 muxes
+  • Design 2: 275 logic gates, 18 muxes
+  • Design 2 has more multiplexers (enable signal adds selection logic)
+
+[1m[96m================================================================================[0m
+
+[92m✓ Markdown report saved to: PPA_comparison_report.md[0m
+
+
+=== End Output ===
+

@@ -1,0 +1,10 @@
+=== Command: ls -lh synth_alu8bit* 2>/dev/null | cat (2026-02-19T22:11:15.529Z) ===
+Exit Code: 0
+Output:
+-rw-r--r--@ 1 aliena  staff   206K Feb 19 16:11 synth_alu8bit.json
+-rw-r--r--@ 1 aliena  staff   1.7K Feb 19 16:07 synth_alu8bit.ys
+-rw-r--r--@ 1 aliena  staff   256K Feb 19 16:11 synth_alu8bit_diagram.dot
+-rw-r--r--@ 1 aliena  staff    15K Feb 19 16:11 synth_alu8bit_netlist.v
+
+=== End Output ===
+

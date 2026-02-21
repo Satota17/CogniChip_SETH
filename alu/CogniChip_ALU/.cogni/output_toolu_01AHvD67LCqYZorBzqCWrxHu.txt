@@ -1,0 +1,12 @@
+=== Command: find Custom -name "*.v" -o -name "*.bak" | grep -i add (2026-02-19T22:22:26.941Z) ===
+Exit Code: 0
+Output:
+Custom/add_4bit.v.bak
+Custom/add_subtract_8bit.v.bak
+Custom/add_8bit.v.bak
+Custom/add_4bit.v
+Custom/add_8bit.v
+Custom/add_subtract_8bit.v
+
+=== End Output ===
+

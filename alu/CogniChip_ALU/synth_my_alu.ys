@@ -1,0 +1,53 @@
+# Yosys Synthesis Script for alu8bit_mydesign.v
+# My behavioral 8-bit ALU design
+# Date: February 19, 2026
+
+# Print header
+echo on
+
+# Read the Verilog source file
+read_verilog alu8bit_mydesign.v
+
+# Set hierarchy (top module)
+hierarchy -check -top alu8bit
+
+# Translate processes to netlists
+proc
+
+# Optimize the design
+opt
+
+# Memory optimization
+memory
+
+# Technology mapping - generic library
+techmap
+
+# Optimize again after technology mapping
+opt
+
+# Clean up the design
+clean
+
+# Print statistics
+stat
+
+# Show the design hierarchy
+hierarchy -check
+
+# Print detailed cell usage statistics
+stat -top alu8bit
+
+# Check design
+check
+
+# Write the synthesized netlist (Verilog format)
+write_verilog -noattr synth_alu8bit_mydesign_netlist.v
+
+# Write the synthesized netlist (JSON format for further analysis)
+write_json synth_alu8bit_mydesign.json
+
+# Print final summary
+echo "====================================="
+echo "Synthesis complete for My ALU Design"
+echo "====================================="

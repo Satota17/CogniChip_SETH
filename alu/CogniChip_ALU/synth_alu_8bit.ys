@@ -1,0 +1,71 @@
+# Yosys Synthesis Script for alu_8bit.v
+# Full-featured 8-bit ALU with status flags
+# Author: CogniChip Co-Designer
+# Date: February 19, 2026
+
+# Print header
+echo on
+
+# Read the Verilog source file
+read_verilog alu_8bit.v
+
+# Set hierarchy (top module)
+hierarchy -check -top alu_8bit
+
+# Translate processes to netlists
+proc
+
+# Optimize the design
+opt
+
+# Flatten the design (optional - remove hierarchy)
+# flatten
+
+# Memory optimization
+memory
+
+# Technology mapping - generic library
+techmap
+
+# Optimize again after technology mapping
+opt
+
+# Clean up the design
+clean
+
+# Print statistics
+stat
+
+# Show the design hierarchy
+hierarchy -check
+
+# Print detailed cell usage statistics
+stat -top alu_8bit
+
+# Check design
+check
+
+# Write the synthesized netlist (Verilog format)
+write_verilog -noattr synth_alu_8bit_netlist.v
+
+# Write the synthesized netlist (JSON format for further analysis)
+write_json synth_alu_8bit.json
+
+# Generate a graphical representation (DOT format)
+show -format dot -prefix synth_alu_8bit_diagram -notitle
+
+# Print final summary
+echo ""
+echo "====================================="
+echo "Synthesis Summary for alu_8bit.v"
+echo "====================================="
+echo "Module: alu_8bit"
+echo "Inputs: A[7:0], B[7:0], opcode[3:0]"
+echo "Outputs: result[7:0], zero, carry, overflow, sign"
+echo "Operations: 16 (ADD, SUB, AND, OR, XOR, NOT, SLL, SRL, SLA, SRA, INC, DEC, EQ, LT, GT, PASS)"
+echo "====================================="
+echo "Output files generated:"
+echo "  - synth_alu_8bit_netlist.v (Verilog netlist)"
+echo "  - synth_alu_8bit.json (JSON netlist)"
+echo "  - synth_alu_8bit_diagram.dot (Graphical representation)"
+echo "====================================="

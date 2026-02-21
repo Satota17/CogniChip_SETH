@@ -1,0 +1,57 @@
+=== Command: grep -A 50 "10. Printing statistics" synth_alu_8bit.log (2026-02-19T22:13:11.314Z) ===
+Exit Code: 0
+Output:
+10. Printing statistics.
+
+=== alu_8bit ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      174 wires
+      674 wire bits
+        8 public wires
+       32 public wire bits
+        8 ports
+       32 port bits
+      525 cells
+      183   $_AND_
+       10   $_MUX_
+       45   $_NOT_
+      241   $_OR_
+       46   $_XOR_
+
+
+yosys> check
+
+11. Executing CHECK pass (checking for obvious problems).
+Checking module alu_8bit...
+Found and reported 0 problems.
+
+yosys> write_verilog -noattr synth_alu_8bit_netlist.v
+
+12. Executing Verilog backend.
+
+yosys> bmuxmap
+
+12.1. Executing BMUXMAP pass.
+
+yosys> demuxmap
+
+12.2. Executing DEMUXMAP pass.
+
+yosys> clean_zerowidth
+Dumping module `\alu_8bit'.
+
+yosys> write_json synth_alu_8bit.json
+
+13. Executing JSON backend.
+
+yosys> show -format dot -prefix synth_alu_8bit_diagram -notitle
+
+14. Generating Graphviz representation of design.
+Writing dot description to `synth_alu_8bit_diagram.dot'.
+Dumping module alu_8bit to page 1.
+
+
+=== End Output ===
+

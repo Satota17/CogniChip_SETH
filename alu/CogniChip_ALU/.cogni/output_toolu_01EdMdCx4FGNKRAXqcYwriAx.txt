@@ -1,0 +1,6 @@
+=== Command: cp Custom/alu8bit.v Custom/and_gate8.v Custom/or_gate8.v Custom/exor_gate8.v Custom/not_gate8.v Custom/inc_8bit.v Custom/dec_8bit.v Custom/sub_8bit.v Custom/add_subtract_8bit.v . (2026-02-19T22:22:11.526Z) ===
+Exit Code: 0
+Output:
+
+=== End Output ===
+

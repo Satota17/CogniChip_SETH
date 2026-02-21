@@ -1,0 +1,8 @@
+=== Command: which yosys && yosys --version | head -1 (2026-02-19T22:12:44.609Z) ===
+Exit Code: 0
+Output:
+/opt/homebrew/bin/yosys
+Yosys 0.62 (git sha1 7326bb7d6641500ecb285c291a54a662cb1e76cf, clang++ 17.0.0 -fPIC -O3)
+
+=== End Output ===
+

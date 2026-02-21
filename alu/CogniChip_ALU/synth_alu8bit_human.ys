@@ -1,0 +1,82 @@
+# Yosys Synthesis Script for alu8bit_custom.v
+# Custom structural 8-bit ALU design
+# Date: February 19, 2026
+
+# Print header
+echo on
+
+# Read all Verilog source files (4-bit gates first, then 8-bit, then ALU)
+read_verilog and_gate4.v
+read_verilog or_gate4.v
+read_verilog exor_gate4.v
+read_verilog not_gate4.v
+read_verilog add_4bit.v
+read_verilog add_8bit.v
+read_verilog and_gate8.v
+read_verilog or_gate8.v
+read_verilog exor_gate8.v
+read_verilog not_gate8.v
+read_verilog add_subtract_8bit.v
+read_verilog inc_8bit.v
+read_verilog dec_8bit.v
+read_verilog sub_8bit.v
+read_verilog alu8bit_custom.v
+
+# Set hierarchy (top module)
+hierarchy -check -top alu8bit
+
+# Translate processes to netlists
+proc
+
+# Optimize the design
+opt
+
+# Memory optimization
+memory
+
+# Technology mapping - generic library
+techmap
+
+# Optimize again after technology mapping
+opt
+
+# Clean up the design
+clean
+
+# Print statistics
+stat
+
+# Show the design hierarchy
+hierarchy -check
+
+# Print detailed cell usage statistics
+stat -top alu8bit
+
+# Check design
+check
+
+# Write the synthesized netlist (Verilog format)
+write_verilog -noattr synth_alu8bit_custom_netlist.v
+
+# Write the synthesized netlist (JSON format for further analysis)
+write_json synth_alu8bit_custom.json
+
+# Generate a graphical representation (DOT format)
+show -format dot -prefix synth_alu8bit_custom_diagram -notitle
+
+# Print final summary
+echo ""
+echo "====================================="
+echo "Synthesis Summary for alu8bit_custom.v"
+echo "====================================="
+echo "Module: alu8bit (Custom Structural Design)"
+echo "Inputs: a[7:0], b[7:0], en, opcode[3:0]"
+echo "Outputs: out[7:0], cout"
+echo "Architecture: Hierarchical/Structural"
+echo "Sub-modules: 14 modules (4-bit and 8-bit gates, arithmetic units)"
+echo "====================================="
+echo "Output files generated:"
+echo "  - synth_alu8bit_custom_netlist.v (Verilog netlist)"
+echo "  - synth_alu8bit_custom.json (JSON netlist)"
+echo "  - synth_alu8bit_custom_diagram.dot (Graphical representation)"
+echo "====================================="

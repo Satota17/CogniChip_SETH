@@ -1,0 +1,172 @@
+# Makefile for ALU Synthesis using Yosys
+# CogniChip ALU Design Project
+# Date: February 19, 2026
+
+# Tools
+YOSYS = yosys
+DOT = dot
+
+# Source files
+ALU_8BIT_SRC = alu_8bit.v
+ALU8BIT_SRC = alu8bit.v
+
+# Synthesis scripts
+SYNTH_ALU_8BIT = synth_alu_8bit.ys
+SYNTH_ALU8BIT = synth_alu8bit.ys
+SYNTH_COMPARE = synth_compare_both.ys
+
+# Output files
+ALU_8BIT_NETLIST = synth_alu_8bit_netlist.v
+ALU8BIT_NETLIST = synth_alu8bit_netlist.v
+ALU_8BIT_JSON = synth_alu_8bit.json
+ALU8BIT_JSON = synth_alu8bit.json
+ALU_8BIT_DOT = synth_alu_8bit_diagram.dot
+ALU8BIT_DOT = synth_alu8bit_diagram.dot
+
+# Image outputs
+ALU_8BIT_PNG = synth_alu_8bit_diagram.png
+ALU8BIT_PNG = synth_alu8bit_diagram.png
+ALU_8BIT_PDF = synth_alu_8bit_diagram.pdf
+ALU8BIT_PDF = synth_alu8bit_diagram.pdf
+
+# Colors for output
+GREEN = \033[0;32m
+YELLOW = \033[0;33m
+BLUE = \033[0;34m
+NC = \033[0m # No Color
+
+.PHONY: all synth_all synth_alu_8bit synth_alu8bit compare diagrams clean help
+
+# Default target
+all: synth_all diagrams
+	@echo "$(GREEN)✓ Complete synthesis and diagram generation finished!$(NC)"
+
+# Synthesize all designs
+synth_all: synth_alu_8bit synth_alu8bit
+	@echo "$(GREEN)✓ All designs synthesized successfully!$(NC)"
+
+# Synthesize alu_8bit.v (full-featured)
+synth_alu_8bit: $(ALU_8BIT_SRC) $(SYNTH_ALU_8BIT)
+	@echo "$(BLUE)→ Synthesizing $(ALU_8BIT_SRC)...$(NC)"
+	$(YOSYS) $(SYNTH_ALU_8BIT)
+	@echo "$(GREEN)✓ $(ALU_8BIT_SRC) synthesis complete$(NC)"
+
+# Synthesize alu8bit.v (modified)
+synth_alu8bit: $(ALU8BIT_SRC) $(SYNTH_ALU8BIT)
+	@echo "$(BLUE)→ Synthesizing $(ALU8BIT_SRC)...$(NC)"
+	$(YOSYS) $(SYNTH_ALU8BIT)
+	@echo "$(GREEN)✓ $(ALU8BIT_SRC) synthesis complete$(NC)"
+
+# Compare both designs
+compare: $(ALU_8BIT_SRC) $(ALU8BIT_SRC) $(SYNTH_COMPARE)
+	@echo "$(BLUE)→ Comparing both ALU designs...$(NC)"
+	$(YOSYS) $(SYNTH_COMPARE)
+	@echo "$(GREEN)✓ Comparison complete$(NC)"
+
+# Generate diagrams from DOT files
+diagrams: $(ALU_8BIT_DOT) $(ALU8BIT_DOT)
+	@echo "$(BLUE)→ Generating PNG diagrams...$(NC)"
+	@if command -v $(DOT) >/dev/null 2>&1; then \
+		$(DOT) -Tpng $(ALU_8BIT_DOT) -o $(ALU_8BIT_PNG) && \
+		echo "$(GREEN)✓ Generated $(ALU_8BIT_PNG)$(NC)"; \
+		$(DOT) -Tpng $(ALU8BIT_DOT) -o $(ALU8BIT_PNG) && \
+		echo "$(GREEN)✓ Generated $(ALU8BIT_PNG)$(NC)"; \
+	else \
+		echo "$(YELLOW)⚠ Graphviz not installed. Skipping diagram generation.$(NC)"; \
+		echo "$(YELLOW)  Install with: brew install graphviz (macOS) or apt-get install graphviz (Linux)$(NC)"; \
+	fi
+
+# Generate PDF diagrams
+pdf: $(ALU_8BIT_DOT) $(ALU8BIT_DOT)
+	@echo "$(BLUE)→ Generating PDF diagrams...$(NC)"
+	@if command -v $(DOT) >/dev/null 2>&1; then \
+		$(DOT) -Tpdf $(ALU_8BIT_DOT) -o $(ALU_8BIT_PDF) && \
+		echo "$(GREEN)✓ Generated $(ALU_8BIT_PDF)$(NC)"; \
+		$(DOT) -Tpdf $(ALU8BIT_DOT) -o $(ALU8BIT_PDF) && \
+		echo "$(GREEN)✓ Generated $(ALU8BIT_PDF)$(NC)"; \
+	else \
+		echo "$(YELLOW)⚠ Graphviz not installed. Cannot generate PDFs.$(NC)"; \
+	fi
+
+# Run synthesis and generate all outputs
+full: clean synth_all diagrams pdf
+	@echo "$(GREEN)✓ Full synthesis flow complete!$(NC)"
+	@echo "$(BLUE)Generated files:$(NC)"
+	@ls -lh synth_*.v synth_*.json *.png *.pdf 2>/dev/null || true
+
+# Statistics only (quick check)
+stats: synth_all
+	@echo "$(BLUE)====================================="
+	@echo "Synthesis Statistics Summary"
+	@echo "=====================================$(NC)"
+	@echo ""
+	@echo "$(GREEN)alu_8bit.v statistics:$(NC)"
+	@grep -A 10 "Number of" $(ALU_8BIT_NETLIST) | head -20 || echo "Netlist not found"
+	@echo ""
+	@echo "$(GREEN)alu8bit.v statistics:$(NC)"
+	@grep -A 10 "Number of" $(ALU8BIT_NETLIST) | head -20 || echo "Netlist not found"
+
+# Clean generated files
+clean:
+	@echo "$(YELLOW)→ Cleaning generated files...$(NC)"
+	rm -f $(ALU_8BIT_NETLIST) $(ALU8BIT_NETLIST)
+	rm -f $(ALU_8BIT_JSON) $(ALU8BIT_JSON)
+	rm -f $(ALU_8BIT_DOT) $(ALU8BIT_DOT)
+	rm -f $(ALU_8BIT_PNG) $(ALU8BIT_PNG)
+	rm -f $(ALU_8BIT_PDF) $(ALU8BIT_PDF)
+	rm -f *.log
+	@echo "$(GREEN)✓ Cleanup complete$(NC)"
+
+# Check if tools are installed
+check:
+	@echo "$(BLUE)→ Checking required tools...$(NC)"
+	@command -v $(YOSYS) >/dev/null 2>&1 && echo "$(GREEN)✓ Yosys found: $$($(YOSYS) --version | head -1)$(NC)" || echo "$(YELLOW)✗ Yosys not found$(NC)"
+	@command -v $(DOT) >/dev/null 2>&1 && echo "$(GREEN)✓ Graphviz found: $$($(DOT) -V 2>&1)$(NC)" || echo "$(YELLOW)✗ Graphviz not found (optional for diagrams)$(NC)"
+
+# Help target
+help:
+	@echo "$(BLUE)========================================="
+	@echo "ALU Synthesis Makefile - Help"
+	@echo "=========================================$(NC)"
+	@echo ""
+	@echo "Available targets:"
+	@echo "  $(GREEN)make all$(NC)              - Synthesize all designs and generate diagrams (default)"
+	@echo "  $(GREEN)make synth_all$(NC)        - Synthesize both ALU designs"
+	@echo "  $(GREEN)make synth_alu_8bit$(NC)   - Synthesize only alu_8bit.v (full-featured)"
+	@echo "  $(GREEN)make synth_alu8bit$(NC)    - Synthesize only alu8bit.v (modified)"
+	@echo "  $(GREEN)make compare$(NC)          - Compare both designs"
+	@echo "  $(GREEN)make diagrams$(NC)         - Generate PNG diagrams from DOT files"
+	@echo "  $(GREEN)make pdf$(NC)              - Generate PDF diagrams"
+	@echo "  $(GREEN)make full$(NC)             - Clean + synthesize + all diagrams"
+	@echo "  $(GREEN)make stats$(NC)            - Show synthesis statistics"
+	@echo "  $(GREEN)make clean$(NC)            - Remove all generated files"
+	@echo "  $(GREEN)make check$(NC)            - Check if required tools are installed"
+	@echo "  $(GREEN)make help$(NC)             - Show this help message"
+	@echo ""
+	@echo "$(BLUE)Examples:$(NC)"
+	@echo "  make                 # Run default synthesis + diagrams"
+	@echo "  make synth_alu_8bit  # Synthesize only the original ALU"
+	@echo "  make compare         # Compare both designs"
+	@echo "  make clean all       # Clean and rebuild everything"
+	@echo ""
+	@echo "$(BLUE)Requirements:$(NC)"
+	@echo "  - Yosys (synthesis tool)"
+	@echo "  - Graphviz (optional, for diagram generation)"
+	@echo ""
+	@echo "$(BLUE)Install tools:$(NC)"
+	@echo "  macOS:   brew install yosys graphviz"
+	@echo "  Ubuntu:  sudo apt-get install yosys graphviz"
+	@echo ""
+
+# Show current status
+status:
+	@echo "$(BLUE)→ Synthesis Status:$(NC)"
+	@echo ""
+	@echo "Source files:"
+	@ls -lh $(ALU_8BIT_SRC) $(ALU8BIT_SRC) 2>/dev/null || echo "  $(YELLOW)Source files not found$(NC)"
+	@echo ""
+	@echo "Synthesis scripts:"
+	@ls -lh $(SYNTH_ALU_8BIT) $(SYNTH_ALU8BIT) $(SYNTH_COMPARE) 2>/dev/null || echo "  $(YELLOW)Synthesis scripts not found$(NC)"
+	@echo ""
+	@echo "Generated files:"
+	@ls -lh synth_*.v synth_*.json *.dot *.png *.pdf 2>/dev/null || echo "  $(YELLOW)No generated files yet. Run 'make all' to generate.$(NC)"

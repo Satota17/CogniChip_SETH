@@ -1,0 +1,26 @@
+=== Command: yosys -p "read_verilog alu8bit.v; hierarchy -check -top alu8bit; proc; opt; techmap; opt; stat" 2>&1 | grep -A 20 "=== alu8bit ===" | cat (2026-02-19T22:11:37.119Z) ===
+Exit Code: 0
+Output:
+=== alu8bit ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      111 wires
+      391 wire bits
+        6 public wires
+       30 public wire bits
+        6 ports
+       30 port bits
+      325 cells
+      119   $_AND_
+       18   $_MUX_
+       32   $_NOT_
+      126   $_OR_
+       30   $_XOR_
+
+End of script. Logfile hash: 8e4dfd815e, CPU: user 0.04s system 0.00s, MEM: 18.92 MB peak
+Yosys 0.62 (git sha1 7326bb7d6641500ecb285c291a54a662cb1e76cf, clang++ 17.0.0 -fPIC -O3)
+Time spent: 24% 1x techmap (0 sec), 22% 9x opt_expr (0 sec), ...
+
+=== End Output ===
+

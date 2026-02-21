@@ -1,0 +1,6 @@
+=== Command: yosys synth_alu8bit_custom.ys > synth_alu8bit_custom.log 2>&1 (2026-02-19T22:24:59.128Z) ===
+Exit Code: 1
+Output:
+
+=== End Output ===
+

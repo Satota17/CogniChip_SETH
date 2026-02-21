@@ -1,0 +1,115 @@
+# Yosys Synthesis Script - Compare Both ALU Designs
+# Synthesizes and compares alu_8bit.v and alu8bit.v
+# Author: CogniChip Co-Designer
+# Date: February 19, 2026
+
+echo on
+echo "========================================="
+echo "Comparative Synthesis: Both ALU Versions"
+echo "========================================="
+echo ""
+
+###########################################
+# Synthesize First Design: alu_8bit.v
+###########################################
+echo "--------------------------------------"
+echo "1. Synthesizing alu_8bit.v (Full-featured)"
+echo "--------------------------------------"
+
+# Create a design namespace
+design -reset
+
+# Read and synthesize first design
+read_verilog alu_8bit.v
+hierarchy -check -top alu_8bit
+proc
+opt
+memory
+techmap
+opt
+clean
+
+# Print statistics for first design
+echo "Statistics for alu_8bit:"
+stat -top alu_8bit
+
+# Save the design
+design -save alu_8bit_design
+
+# Write outputs
+write_verilog -noattr synth_alu_8bit_netlist.v
+write_json synth_alu_8bit.json
+
+echo ""
+echo "✓ alu_8bit.v synthesis complete"
+echo ""
+
+###########################################
+# Synthesize Second Design: alu8bit.v
+###########################################
+echo "--------------------------------------"
+echo "2. Synthesizing alu8bit.v (Modified)"
+echo "--------------------------------------"
+
+# Reset and create new design
+design -reset
+
+# Read and synthesize second design
+read_verilog alu8bit.v
+hierarchy -check -top alu8bit
+proc
+opt
+memory
+techmap
+opt
+clean
+
+# Print statistics for second design
+echo "Statistics for alu8bit:"
+stat -top alu8bit
+
+# Save the design
+design -save alu8bit_design
+
+# Write outputs
+write_verilog -noattr synth_alu8bit_netlist.v
+write_json synth_alu8bit.json
+
+echo ""
+echo "✓ alu8bit.v synthesis complete"
+echo ""
+
+###########################################
+# Generate Comparison Report
+###########################################
+echo "========================================="
+echo "Synthesis Comparison Summary"
+echo "========================================="
+echo ""
+echo "Design 1: alu_8bit.v"
+echo "  - Module: alu_8bit"
+echo "  - Inputs: A[7:0], B[7:0], opcode[3:0]"
+echo "  - Outputs: result[7:0], zero, carry, overflow, sign"
+echo "  - Operations: 16 operations"
+echo "  - Flags: 4 status flags"
+echo ""
+echo "Design 2: alu8bit.v"
+echo "  - Module: alu8bit"
+echo "  - Inputs: a[7:0], b[7:0], en, opcode[3:0]"
+echo "  - Outputs: out[7:0], cout"
+echo "  - Operations: 10 operations"
+echo "  - Features: Enable signal, simplified outputs"
+echo ""
+echo "========================================="
+echo "Output Files Generated:"
+echo "========================================="
+echo "alu_8bit.v outputs:"
+echo "  - synth_alu_8bit_netlist.v"
+echo "  - synth_alu_8bit.json"
+echo ""
+echo "alu8bit.v outputs:"
+echo "  - synth_alu8bit_netlist.v"
+echo "  - synth_alu8bit.json"
+echo "========================================="
+echo "Synthesis complete!"
+echo "========================================="

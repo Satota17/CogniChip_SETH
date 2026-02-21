@@ -1,0 +1,23 @@
+=== Command: ls -1 *.v | head -20 (2026-02-19T22:22:51.072Z) ===
+Exit Code: 0
+Output:
+add_4bit.v
+add_8bit.v
+add_subtract_8bit.v
+alu8bit.v
+alu8bit_custom.v
+alu_8bit.v
+and_gate8.v
+dec_8bit.v
+exor_gate8.v
+inc_8bit.v
+not_gate8.v
+or_gate8.v
+sub_8bit.v
+synth_alu8bit_netlist.v
+synth_alu_8bit_netlist.v
+tb_alu_8bit.v
+testbench_alu_custom.v
+
+=== End Output ===
+
